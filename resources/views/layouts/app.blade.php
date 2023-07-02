@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -31,8 +31,14 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <!-- Left Side Of Navbar --> <ul class="navbar-nav me-auto">
+                        
+                        @can('isResto')
+                        <li class="nav-item"><a class="nav-link"
+                            href="{{ url('/resto/pizza') }}">Pizza</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                            href="{{ url('/resto/user') }}">User</a></li>
+                        @endcan
 
                     </ul>
 
@@ -81,15 +87,15 @@
             <ul class="alert alert-danger">
                 @foreach ($errors->all() as $err)
                     <li>{{ $err }}</li>
-            @endforeach
-        </ul>
-        @endif
-        @if(\Session::has('success'))
-        <div class="alert alert-success">
-            {{ \Session::get('success') }}
+                @endforeach
+            </ul>
+            @endif
+            @if(\Session::has('success'))
+            <div class="alert alert-success">
+                {{ \Session::get('success') }}
+            </div>
+            @endif
         </div>
-        @endif
-    </div>
             @yield('content')
         </main>
     </div>

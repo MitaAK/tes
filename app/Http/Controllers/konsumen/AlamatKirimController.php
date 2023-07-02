@@ -42,23 +42,23 @@ class AlamatKirimController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-        'nama_penerima' => 'required',
-        'harga_satuan' => 'required|numeric'
-    ], [
-        'nama_penerima.required' => 'Nama pizza harus diisi!',
-        'harga_satuan.required' => 'Harga satuan harus diisi!',
-        'harga_satuan.numeric' => 'Harga satuan harus berupa angka!'
-    ])->validate();
-    try{
-        $alamatkirims = new Penerima();
-        $alamatkirims->nama_penerima = $request->nama_penerima;
-        $alamatkirims->harga_satuan = $request->harga_satuan;
-        $alamatkirims->save();
-    }catch(\Exception $e){
-        return redirect()->back()->withInput()->withErrors(['msg' => $e->getMessage()]);
-    }
-    return redirect('/konsumen/alamatkirim')->with('success', 'Berhasil tambah data');
-        
+            'nama_penerima' => 'required',
+            'alamat' => 'required'
+        ], [
+            'nama_penerima.required' => 'Nama penerima harus diisi!',
+            'alamat.required' => 'Alamat harus diisi!'
+        ])->validate();
+        try{
+            $alamat_kirim = new AlamatKirim();
+            $alamat_kirim->konsumen_id = auth()->user()->id;
+            $alamat_kirim->nama_penerima = $request->nama_penerima;
+            $alamat_kirim->alamat = $request->alamat;
+            $alamat_kirim->is_default = 0;
+            $alamat_kirim->save();
+        }catch(\Exception $e){
+            return redirect()->back()->withInput()->withErrors(['msg' => $e->getMessage()]);
+        }
+           return redirect('/konsumen/alamatkirim')->with('success', 'Berhasil tambah data');
     }
 
     /**
