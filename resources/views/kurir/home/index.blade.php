@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col-4 pizza-card pizza-primary">
-            <div class="row" style="padding-left:5px;padding-right:20px">
+            <div class="row" style="padding-left:5px;padding-right:-20px">
                 <div class="col">
                     Order minggu terakhir
                 </div>
